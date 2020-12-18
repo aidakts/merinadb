@@ -1,0 +1,35 @@
+{
+  "name": "merinadb",
+  "version": "1.0.0",
+  "description": "The official NodeJS connector for MerinaDB.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "bson": "^4.2.2",
+    "fs": "^0.0.1-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/merinadb/nodejs-connector.git"
+  },
+  "keywords": [
+    "db",
+    "database",
+    "json",
+    "merina",
+    "merinadb"
+  ],
+  "author": "MerinaDB Foundation",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/merinadb/nodejs-connector/issues"
+  },
+  "homepage": "https://github.com/merinadb/nodejs-connector#readme"
+}
