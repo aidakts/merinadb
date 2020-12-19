@@ -24,15 +24,21 @@ const db = new MerinaClient.Cluster('merinadb://localhost@root:123456785323') //
 db.connect()
 
 const col = new MerinaClient.Collection('Example Inc.')
-col.insertOne({
-    document: 'customers',
-    key: '1',
-    value: 'Murray'
+col.insertOne('customers',
+{ name: 'Robert',
+surname: 'A. Cortright',
+address: {
+    street: '1325 Conference Center Way',
+    city: 'Scranton',
+    state: 'PA',
+    zip: 18503
+},
+number: '+1 570-878-2815'
 })
 
 let o = col.findOne({
     document: 'customers',
-    key: '1'
+    key: 'name'
 })
 
 db.end() // if you want, you can close the connection, but it will be automatically closed when you close your project.

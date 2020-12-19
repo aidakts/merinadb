@@ -1,6 +1,6 @@
 const fs = require('fs')
 const BSON = require('bson')
-
+const { v4: uuidv4 } = require('uuid')
 function Cluster(url) {
     u = url
 
@@ -20,18 +20,24 @@ if(!fs.existsSync(`merinadb/${name}`)){
 if (name === undefined) return new TypeError("The collection's name cannot be undefined.")
 }
 
-Collection.prototype.insertOne = function(ops){
-    if(!fs.existsSync(`merinadb/${nm}/${ops.document}.json`)){
-        fs.writeFileSync(`merinadb/${nm}/${ops.document}.json`, '{}')
-    }
-    let col = fs.readFileSync(`merinadb/${nm}/${ops.document}.json`, 'utf-8')
-    let fcol = JSON.parse(col)
+Collection.prototype.insertOne = function(document, schematic){
+    let random = uuidv4()
+    if(!fs.existsSync(`merinadb/${nm}/${document}.json`)){
+        schematic._id = random
 
-    fcol[ops.key] = ops.value
-    fs.writeFileSync(`merinadb/${nm}/${ops.document}.json`, JSON.stringify(fcol, null, 2))
+    let fc = JSON.stringify(schematic, null, 2)
+    fs.writeFileSync(`merinadb/${nm}/${document}.json`, fc)
+    }
 }
 
 Collection.prototype.findOne = function(ops){
+    let col = fs.readFileSync(`merinadb/${nm}/${ops.document}.json`, 'utf-8')
+    let fcol = JSON.parse(col)
+
+    return fcol[ops.key]
+}
+
+Collection.prototype.findOneById = function (ops){
     let col = fs.readFileSync(`merinadb/${nm}/${ops.document}.json`, 'utf-8')
     let fcol = JSON.parse(col)
 
